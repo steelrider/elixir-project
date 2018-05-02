@@ -1,7 +1,4 @@
 defmodule Json do
-  def getKeys(json), do: Map.keys(json)
-  def getValues(json), do: Map.values(json)
-  def getSize(json), do: length(getKeys(json))
 
   def encodeValue(val) when is_nil(val), do: <<0xc0>>
   def encodeValue("null"), do: <<0xc0>>
