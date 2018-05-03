@@ -8,7 +8,7 @@ defmodule Json do
   def encodeValue(val) when is_boolean(val) and val==true, do: <<0xC3>>
 
   #integers
-  def encodeValue(val) when is_integer(val) and val>=-32 and val<=31, do: <<0b111::1,val::7>>
+  def encodeValue(val) when is_integer(val) and val>=-32 and val<=31, do: <<0b111::3,val::5>>
   def encodeValue(val) when is_integer(val) and val>=-128 and val<=127, do: <<0xD0::8,val::8>>
   def encodeValue(val) when is_integer(val) and val>=-32768 and val<=32767, do: <<0xD1::8,val::16>>
   def encodeValue(val) when is_integer(val) and val>=-2147483648 and val<=2147483647, do: <<0xD2::8,val::32>>
