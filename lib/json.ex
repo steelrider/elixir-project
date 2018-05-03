@@ -2,10 +2,10 @@ defmodule Json do
   #конвертира от json формат(еликсирски map) в msgpack формат
 
   #booleans
-  def encodeValue(val) when is_nil(val), do: <<0xc0>>
-  def encodeValue("null"), do: <<0xc0>>
-  def encodeValue(val) when is_boolean(val) and val==false, do: <<0xc2>>
-  def encodeValue(val) when is_boolean(val) and val==true, do: <<0xc3>>
+  def encodeValue(val) when is_nil(val), do: <<0xC0>>
+  def encodeValue("null"), do: <<0xC0>>
+  def encodeValue(val) when is_boolean(val) and val==false, do: <<0xC2>>
+  def encodeValue(val) when is_boolean(val) and val==true, do: <<0xC3>>
 
   #integers
   def encodeValue(val) when is_integer(val) and val>=-32 and val<=31, do: <<0b111::1,val::7>>
