@@ -1,12 +1,12 @@
 defmodule JsonTest do
   use ExUnit.Case
-  doctest Json
+  import Msg
 
   test "encodes empty json" do
     assert Json.encode(%{}) == <<128>>
   end
 
-  test "encodes list as a value" do
+  test "encodes list" do
     assert Json.encode(%{key: [1,"a",%{a: 1}]}) == <<129, 163, 107, 101, 121, 147, 1, 161, 97, 129, 161, 97, 1>>
   end
 
@@ -15,10 +15,14 @@ defmodule JsonTest do
   end
 
   test "assert msgpack is smaller" do
-    assert byte_size(Json.encode(%{something: true, number: 1234, name: "kgjfk"})) <= byte_size(inspect(%{something: true, number: 1234, name: "kgjfk"}))
+    assert byte_size(Json.encode(%{something: true, number: 1234, name: "kgjfk",some_list: [1,true,"a"]})) <= byte_size(inspect(%{something: true, number: 1234, name: "kgjfk", some_list: [1,true,"a"]}))
   end
 
-  test "null is nil" do
-    assert Json.encode(%{key: "null"}) == Json.encode(%{key: nil})
+  test "msgpack to int" do
+    assert Msg.decodeValue(Json.encodeValue(4592)) == 4592
+  end
+
+  test "msgpack to string" do
+    assert Msg.decodeValue(Json.encodeValue("some_string")) == "some_string"
   end
 end
